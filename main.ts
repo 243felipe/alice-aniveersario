@@ -122,16 +122,16 @@ class UnderwaterScene3D {
   }
 
   private createSeaCreatures(): void {
-    // Criar polvo rosa (como na imagem)
-    const octopus = this.createOctopus();
+    // Criar polvo rosa fofo
+    const octopus = this.createCuteOctopus();
     octopus.position.set(-6, 2, -3);
     (octopus as any).swimPath = 0;
     (octopus as any).swimSpeed = 0.3;
     this.seaCreatures.push(octopus);
     this.scene.add(octopus);
 
-    // Criar tartaruga verde (como na imagem)
-    const turtle = this.createTurtle();
+    // Criar tartaruga verde fofa
+    const turtle = this.createCuteTurtle();
     turtle.position.set(6, -2, -4);
     turtle.scale.set(1.5, 1.5, 1.5);
     (turtle as any).swimPath = Math.PI;
@@ -139,14 +139,41 @@ class UnderwaterScene3D {
     this.seaCreatures.push(turtle);
     this.scene.add(turtle);
 
-    // Criar peixe azul/amarelo (tipo Nemo da imagem)
-    const blueFish = this.createBlueFish();
-    blueFish.position.set(0, 3, -2);
-    blueFish.scale.set(1.2, 1.2, 1.2);
-    (blueFish as any).swimPath = Math.PI / 2;
-    (blueFish as any).swimSpeed = 0.4;
-    this.seaCreatures.push(blueFish);
-    this.scene.add(blueFish);
+    // Criar peixinho colorido fofo
+    const colorfulFish = this.createColorfulFish();
+    colorfulFish.position.set(0, 3, -2);
+    colorfulFish.scale.set(1.2, 1.2, 1.2);
+    (colorfulFish as any).swimPath = Math.PI / 2;
+    (colorfulFish as any).swimSpeed = 0.4;
+    this.seaCreatures.push(colorfulFish);
+    this.scene.add(colorfulFish);
+
+    // Criar água-viva fofa e translúcida
+    const jellyfish = this.createCuteJellyfish();
+    jellyfish.position.set(-3, 0, -1);
+    jellyfish.scale.set(0.8, 0.8, 0.8);
+    (jellyfish as any).swimPath = Math.PI * 1.5;
+    (jellyfish as any).swimSpeed = 0.15;
+    this.seaCreatures.push(jellyfish);
+    this.scene.add(jellyfish);
+
+    // Criar cavalo-marinho fofo
+    const seahorse = this.createCuteSeahorse();
+    seahorse.position.set(4, 1, -2);
+    seahorse.scale.set(1.3, 1.3, 1.3);
+    (seahorse as any).swimPath = Math.PI * 0.7;
+    (seahorse as any).swimSpeed = 0.2;
+    this.seaCreatures.push(seahorse);
+    this.scene.add(seahorse);
+
+    // Criar segundo peixinho pequeno e fofo
+    const smallFish = this.createSmallCuteFish();
+    smallFish.position.set(-2, -1, -1.5);
+    smallFish.scale.set(0.7, 0.7, 0.7);
+    (smallFish as any).swimPath = Math.PI * 0.3;
+    (smallFish as any).swimSpeed = 0.5;
+    this.seaCreatures.push(smallFish);
+    this.scene.add(smallFish);
 
     // Criar peixe laranja/amarelo (como na imagem)
     const orangeFish = this.createOrangeFish();
@@ -283,8 +310,8 @@ class UnderwaterScene3D {
       const eyeGeometry = new THREE.SphereGeometry(0.08, 12, 12);
       const eyeMaterial = new THREE.MeshStandardMaterial({
         color: 0x000000,
-        metalness: 0.9,
-        roughness: 0.1,
+      metalness: 0.9,
+      roughness: 0.1,
       });
       const eye = new THREE.Mesh(eyeGeometry, eyeMaterial);
       eye.position.set(i * 0.2, 0.15, 0.45);
@@ -375,6 +402,413 @@ class UnderwaterScene3D {
     const tailGeometry = new THREE.ConeGeometry(0.2, 0.4, 8);
     const tail = new THREE.Mesh(tailGeometry, finMaterial);
     tail.position.set(-0.5, 0, 0);
+    tail.rotation.z = Math.PI / 2;
+    group.add(tail);
+
+    return group;
+  }
+
+  private createCuteOctopus(): THREE.Group {
+    const group = new THREE.Group();
+
+    // Corpo do polvo (mais fofo e arredondado)
+    const bodyGeometry = new THREE.SphereGeometry(0.6, 16, 16);
+    const bodyMaterial = new THREE.MeshStandardMaterial({
+      color: 0xff69b4, // Rosa fofo
+      metalness: 0.1,
+      roughness: 0.6,
+      emissive: 0xff1493,
+      emissiveIntensity: 0.1,
+    });
+    const body = new THREE.Mesh(bodyGeometry, bodyMaterial);
+    body.position.y = 0.2;
+    group.add(body);
+
+    // Olhos grandes e fofos
+    const eyeGeometry = new THREE.SphereGeometry(0.15, 12, 12);
+    const eyeMaterial = new THREE.MeshStandardMaterial({ color: 0xffffff });
+    
+    const leftEye = new THREE.Mesh(eyeGeometry, eyeMaterial);
+    leftEye.position.set(-0.2, 0.4, 0.4);
+    group.add(leftEye);
+    
+    const rightEye = new THREE.Mesh(eyeGeometry, eyeMaterial);
+    rightEye.position.set(0.2, 0.4, 0.4);
+    group.add(rightEye);
+
+    // Pupilas
+    const pupilGeometry = new THREE.SphereGeometry(0.08, 8, 8);
+    const pupilMaterial = new THREE.MeshStandardMaterial({ color: 0x000000 });
+    
+    const leftPupil = new THREE.Mesh(pupilGeometry, pupilMaterial);
+    leftPupil.position.set(-0.2, 0.4, 0.48);
+    group.add(leftPupil);
+    
+    const rightPupil = new THREE.Mesh(pupilGeometry, pupilMaterial);
+    rightPupil.position.set(0.2, 0.4, 0.48);
+    group.add(rightPupil);
+
+    // Tentáculos fofos
+    const tentacleGeometry = new THREE.CylinderGeometry(0.08, 0.04, 0.8, 8);
+    const tentacleMaterial = new THREE.MeshStandardMaterial({
+      color: 0xff1493,
+      metalness: 0.1,
+      roughness: 0.7,
+    });
+
+    for (let i = 0; i < 8; i++) {
+      const tentacle = new THREE.Mesh(tentacleGeometry, tentacleMaterial);
+      const angle = (i / 8) * Math.PI * 2;
+      tentacle.position.set(
+        Math.cos(angle) * 0.3,
+        -0.4,
+        Math.sin(angle) * 0.3
+      );
+      tentacle.rotation.x = Math.random() * 0.3 - 0.15;
+      tentacle.rotation.z = Math.random() * 0.3 - 0.15;
+      group.add(tentacle);
+    }
+
+    return group;
+  }
+
+  private createCuteTurtle(): THREE.Group {
+    const group = new THREE.Group();
+
+    // Casco da tartaruga (mais colorido e fofo)
+    const shellGeometry = new THREE.SphereGeometry(0.8, 16, 16);
+    shellGeometry.scale(1, 0.6, 1);
+    const shellMaterial = new THREE.MeshStandardMaterial({
+      color: 0x32cd32, // Verde lima fofo
+      metalness: 0.2,
+      roughness: 0.8,
+      emissive: 0x228b22,
+      emissiveIntensity: 0.1,
+    });
+    const shell = new THREE.Mesh(shellGeometry, shellMaterial);
+    group.add(shell);
+
+    // Padrão hexagonal no casco
+    for (let i = 0; i < 6; i++) {
+      const hexGeometry = new THREE.CylinderGeometry(0.15, 0.15, 0.05, 6);
+      const hexMaterial = new THREE.MeshStandardMaterial({
+        color: 0x006400,
+        metalness: 0.1,
+        roughness: 0.9,
+      });
+      const hex = new THREE.Mesh(hexGeometry, hexMaterial);
+      const angle = (i / 6) * Math.PI * 2;
+      hex.position.set(Math.cos(angle) * 0.3, 0.35, Math.sin(angle) * 0.3);
+      hex.rotation.x = Math.PI / 2;
+      group.add(hex);
+    }
+
+    // Cabeça fofa
+    const headGeometry = new THREE.SphereGeometry(0.25, 12, 12);
+    const headMaterial = new THREE.MeshStandardMaterial({
+      color: 0x90ee90,
+      metalness: 0.1,
+      roughness: 0.7,
+    });
+    const head = new THREE.Mesh(headGeometry, headMaterial);
+    head.position.set(0, 0.1, 0.9);
+    group.add(head);
+
+    // Olhos grandes e expressivos
+    const eyeGeometry = new THREE.SphereGeometry(0.08, 8, 8);
+    const eyeMaterial = new THREE.MeshStandardMaterial({ color: 0xffffff });
+    
+    const leftEye = new THREE.Mesh(eyeGeometry, eyeMaterial);
+    leftEye.position.set(-0.1, 0.2, 1.1);
+    group.add(leftEye);
+    
+    const rightEye = new THREE.Mesh(eyeGeometry, eyeMaterial);
+    rightEye.position.set(0.1, 0.2, 1.1);
+    group.add(rightEye);
+
+    // Nadadeiras
+    const flipperGeometry = new THREE.SphereGeometry(0.2, 8, 8);
+    flipperGeometry.scale(1.5, 0.3, 0.8);
+    const flipperMaterial = new THREE.MeshStandardMaterial({
+      color: 0x228b22,
+      metalness: 0.1,
+      roughness: 0.8,
+    });
+
+    // Nadadeiras laterais
+    const leftFlipper = new THREE.Mesh(flipperGeometry, flipperMaterial);
+    leftFlipper.position.set(-0.7, 0, 0.3);
+    leftFlipper.rotation.z = -0.3;
+    group.add(leftFlipper);
+
+    const rightFlipper = new THREE.Mesh(flipperGeometry, flipperMaterial);
+    rightFlipper.position.set(0.7, 0, 0.3);
+    rightFlipper.rotation.z = 0.3;
+    group.add(rightFlipper);
+
+    return group;
+  }
+
+  private createColorfulFish(): THREE.Group {
+    const group = new THREE.Group();
+
+    // Corpo do peixe (formato mais fofo)
+    const bodyGeometry = new THREE.SphereGeometry(0.4, 16, 16);
+    bodyGeometry.scale(1.2, 1, 0.8);
+    const bodyMaterial = new THREE.MeshStandardMaterial({
+      color: 0xff6347, // Laranja coral
+      metalness: 0.3,
+      roughness: 0.5,
+      emissive: 0xff4500,
+      emissiveIntensity: 0.15,
+    });
+    const body = new THREE.Mesh(bodyGeometry, bodyMaterial);
+    group.add(body);
+
+    // Listras coloridas
+    for (let i = 0; i < 3; i++) {
+      const stripeGeometry = new THREE.RingGeometry(0.35 + i * 0.05, 0.4 + i * 0.05, 16);
+      const stripeMaterial = new THREE.MeshStandardMaterial({
+        color: i % 2 === 0 ? 0xffd700 : 0xffffff,
+        transparent: true,
+        opacity: 0.8,
+      });
+      const stripe = new THREE.Mesh(stripeGeometry, stripeMaterial);
+      stripe.position.x = -0.1 + i * 0.1;
+      stripe.rotation.y = Math.PI / 2;
+      group.add(stripe);
+    }
+
+    // Olhos grandes e brilhantes
+    const eyeGeometry = new THREE.SphereGeometry(0.12, 12, 12);
+    const eyeMaterial = new THREE.MeshStandardMaterial({
+      color: 0xffffff,
+      emissive: 0x87ceeb,
+      emissiveIntensity: 0.2,
+    });
+    
+    const leftEye = new THREE.Mesh(eyeGeometry, eyeMaterial);
+    leftEye.position.set(-0.15, 0.15, 0.35);
+    group.add(leftEye);
+    
+    const rightEye = new THREE.Mesh(eyeGeometry, eyeMaterial);
+    rightEye.position.set(0.15, 0.15, 0.35);
+    group.add(rightEye);
+
+    // Nadadeiras coloridas
+    const finGeometry = new THREE.ConeGeometry(0.15, 0.3, 8);
+    const finMaterial = new THREE.MeshStandardMaterial({
+      color: 0x00bfff,
+      metalness: 0.2,
+      roughness: 0.6,
+      transparent: true,
+      opacity: 0.9,
+    });
+
+    const topFin = new THREE.Mesh(finGeometry, finMaterial);
+    topFin.position.set(0, 0.4, 0);
+    topFin.rotation.x = Math.PI;
+    group.add(topFin);
+
+    // Cauda em formato de coração
+    const tailGeometry = new THREE.SphereGeometry(0.2, 8, 8);
+    tailGeometry.scale(0.5, 1.2, 0.3);
+    const tailMaterial = new THREE.MeshStandardMaterial({
+      color: 0xff69b4,
+      metalness: 0.2,
+      roughness: 0.6,
+    });
+    const tail = new THREE.Mesh(tailGeometry, tailMaterial);
+    tail.position.set(-0.6, 0, 0);
+    group.add(tail);
+
+    return group;
+  }
+
+  private createCuteJellyfish(): THREE.Group {
+    const group = new THREE.Group();
+
+    // Corpo da água-viva (sino translúcido)
+    const bellGeometry = new THREE.SphereGeometry(0.5, 16, 16);
+    bellGeometry.scale(1, 0.6, 1);
+    const bellMaterial = new THREE.MeshStandardMaterial({
+      color: 0x9370db, // Roxo suave
+      metalness: 0.1,
+      roughness: 0.1,
+      transparent: true,
+      opacity: 0.4,
+      emissive: 0x8a2be2,
+      emissiveIntensity: 0.3,
+    });
+    const bell = new THREE.Mesh(bellGeometry, bellMaterial);
+    bell.position.y = 0.2;
+    group.add(bell);
+
+    // Borda brilhante
+    const rimGeometry = new THREE.TorusGeometry(0.5, 0.05, 8, 16);
+    const rimMaterial = new THREE.MeshStandardMaterial({
+      color: 0xda70d6,
+      emissive: 0xba55d3,
+        emissiveIntensity: 0.5,
+      });
+    const rim = new THREE.Mesh(rimGeometry, rimMaterial);
+    rim.position.y = -0.1;
+    rim.rotation.x = Math.PI / 2;
+    group.add(rim);
+
+    // Tentáculos ondulantes
+    const tentacleGeometry = new THREE.CylinderGeometry(0.02, 0.01, 1.2, 6);
+    const tentacleMaterial = new THREE.MeshStandardMaterial({
+      color: 0xdda0dd,
+      transparent: true,
+      opacity: 0.7,
+      emissive: 0xba55d3,
+      emissiveIntensity: 0.2,
+    });
+
+    for (let i = 0; i < 12; i++) {
+      const tentacle = new THREE.Mesh(tentacleGeometry, tentacleMaterial);
+      const angle = (i / 12) * Math.PI * 2;
+      const radius = 0.3 + Math.random() * 0.2;
+      tentacle.position.set(
+        Math.cos(angle) * radius,
+        -0.6,
+        Math.sin(angle) * radius
+      );
+      tentacle.rotation.x = Math.random() * 0.4 - 0.2;
+      tentacle.rotation.z = Math.random() * 0.4 - 0.2;
+      group.add(tentacle);
+    }
+
+    return group;
+  }
+
+  private createCuteSeahorse(): THREE.Group {
+    const group = new THREE.Group();
+
+    // Corpo do cavalo-marinho
+    const bodyGeometry = new THREE.CylinderGeometry(0.15, 0.25, 0.8, 12);
+    const bodyMaterial = new THREE.MeshStandardMaterial({
+      color: 0xffd700, // Dourado
+      metalness: 0.4,
+      roughness: 0.6,
+      emissive: 0xffa500,
+      emissiveIntensity: 0.1,
+    });
+    const body = new THREE.Mesh(bodyGeometry, bodyMaterial);
+    body.rotation.z = 0.3; // Curvatura característica
+    group.add(body);
+
+    // Cabeça
+    const headGeometry = new THREE.SphereGeometry(0.2, 12, 12);
+    headGeometry.scale(1, 1.2, 0.8);
+    const head = new THREE.Mesh(headGeometry, bodyMaterial);
+    head.position.set(0.1, 0.5, 0);
+    group.add(head);
+
+    // Focinho alongado
+    const snoutGeometry = new THREE.CylinderGeometry(0.05, 0.08, 0.3, 8);
+    const snout = new THREE.Mesh(snoutGeometry, bodyMaterial);
+    snout.position.set(0.2, 0.6, 0);
+    snout.rotation.z = Math.PI / 2;
+    group.add(snout);
+
+    // Olhos grandes
+    const eyeGeometry = new THREE.SphereGeometry(0.06, 8, 8);
+    const eyeMaterial = new THREE.MeshStandardMaterial({ color: 0x000000 });
+    
+    const leftEye = new THREE.Mesh(eyeGeometry, eyeMaterial);
+    leftEye.position.set(0.05, 0.55, 0.15);
+    group.add(leftEye);
+    
+    const rightEye = new THREE.Mesh(eyeGeometry, eyeMaterial);
+    rightEye.position.set(0.05, 0.55, -0.15);
+    group.add(rightEye);
+
+    // Nadadeira dorsal
+    const finGeometry = new THREE.PlaneGeometry(0.3, 0.6);
+    const finMaterial = new THREE.MeshStandardMaterial({
+      color: 0xff6347,
+      transparent: true,
+      opacity: 0.8,
+      side: THREE.DoubleSide,
+    });
+    const dorsalFin = new THREE.Mesh(finGeometry, finMaterial);
+    dorsalFin.position.set(-0.2, 0.1, 0);
+    dorsalFin.rotation.y = Math.PI / 2;
+    group.add(dorsalFin);
+
+    // Cauda enrolada
+    const tailGeometry = new THREE.TorusGeometry(0.15, 0.05, 6, 12, Math.PI * 1.5);
+    const tail = new THREE.Mesh(tailGeometry, bodyMaterial);
+    tail.position.set(-0.1, -0.4, 0);
+    tail.rotation.x = Math.PI / 2;
+    group.add(tail);
+
+    return group;
+  }
+
+  private createSmallCuteFish(): THREE.Group {
+    const group = new THREE.Group();
+
+    // Corpo pequeno e redondo
+    const bodyGeometry = new THREE.SphereGeometry(0.25, 12, 12);
+    bodyGeometry.scale(1.3, 1, 0.8);
+    const bodyMaterial = new THREE.MeshStandardMaterial({
+      color: 0x00ced1, // Turquesa
+      metalness: 0.3,
+      roughness: 0.5,
+      emissive: 0x008b8b,
+      emissiveIntensity: 0.2,
+    });
+    const body = new THREE.Mesh(bodyGeometry, bodyMaterial);
+    group.add(body);
+
+    // Olhos grandes proporcionais
+    const eyeGeometry = new THREE.SphereGeometry(0.08, 8, 8);
+    const eyeMaterial = new THREE.MeshStandardMaterial({
+      color: 0xffffff,
+      emissive: 0x87ceeb,
+      emissiveIntensity: 0.3,
+    });
+    
+    const leftEye = new THREE.Mesh(eyeGeometry, eyeMaterial);
+    leftEye.position.set(-0.1, 0.1, 0.22);
+    group.add(leftEye);
+    
+    const rightEye = new THREE.Mesh(eyeGeometry, eyeMaterial);
+    rightEye.position.set(0.1, 0.1, 0.22);
+    group.add(rightEye);
+
+    // Pupilas
+    const pupilGeometry = new THREE.SphereGeometry(0.04, 6, 6);
+    const pupilMaterial = new THREE.MeshStandardMaterial({ color: 0x000000 });
+    
+    const leftPupil = new THREE.Mesh(pupilGeometry, pupilMaterial);
+    leftPupil.position.set(-0.1, 0.1, 0.26);
+    group.add(leftPupil);
+    
+    const rightPupil = new THREE.Mesh(pupilGeometry, pupilMaterial);
+    rightPupil.position.set(0.1, 0.1, 0.26);
+    group.add(rightPupil);
+
+    // Nadadeiras pequenas e fofas
+    const finGeometry = new THREE.ConeGeometry(0.08, 0.15, 6);
+    const finMaterial = new THREE.MeshStandardMaterial({
+      color: 0xff69b4,
+      transparent: true,
+      opacity: 0.9,
+    });
+
+    const topFin = new THREE.Mesh(finGeometry, finMaterial);
+    topFin.position.set(0, 0.25, 0);
+    topFin.rotation.x = Math.PI;
+    group.add(topFin);
+
+    // Cauda pequena
+    const tailGeometry = new THREE.ConeGeometry(0.1, 0.2, 6);
+    const tail = new THREE.Mesh(tailGeometry, finMaterial);
+    tail.position.set(-0.35, 0, 0);
     tail.rotation.z = Math.PI / 2;
     group.add(tail);
 
@@ -572,84 +1006,226 @@ class ParticleSystem {
   }
 
   private createParticles(): void {
-    const fishEmojis = ['🐠', '🐡', '🐙', '🐢', '🦀'];
-    const swimAnimations = [
-      'swimRealLeft',
-      'swimRealRight',
-      'swimWave',
-      'swimDeep'
-    ];
-
-    // Criar peixes nadando
-    for (let i = 0; i < 20; i++) {
-      const fish = document.createElement('div');
-      fish.textContent = fishEmojis[Math.floor(Math.random() * fishEmojis.length)];
-      fish.style.position = 'fixed';
-      fish.style.fontSize = `${Math.random() * 30 + 25}px`;
-      fish.style.left = `${Math.random() * 100}%`;
-      fish.style.top = `${Math.random() * 70 + 15}%`; // Entre 15% e 85%
-      fish.style.opacity = `${Math.random() * 0.3 + 0.5}`;
-      fish.style.pointerEvents = 'none';
-      fish.style.zIndex = '1';
-      fish.style.filter = 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))';
-      fish.style.willChange = 'transform';
-      
-      // Escolher animação aleatória de nado
-      const randomAnimation = swimAnimations[Math.floor(Math.random() * swimAnimations.length)];
-      const duration = Math.random() * 8 + 12; // 12-20 segundos (mais rápido)
-      const delay = Math.random() * 3; // Delay menor (0-3s)
-      
-      fish.style.animation = `${randomAnimation} ${duration}s ease-in-out ${delay}s infinite`;
-
-      this.particles.push(fish);
-      this.container.appendChild(fish);
-    }
-
-    // Criar bolhas subindo
+    // Criar apenas bolhas por enquanto
+    // As imagens PNG dos animais marinhos serão adicionadas depois
     this.createBubbles();
+    
+    // Preparar para imagens PNG dos animais marinhos
+    this.createMarineAnimals();
   }
 
   private createBubbles(): void {
+    // Bolhas subindo do fundo do mar
     for (let i = 0; i < 30; i++) {
       const bubble = document.createElement('div');
       bubble.textContent = '🫧';
       bubble.style.position = 'fixed';
-      bubble.style.fontSize = `${Math.random() * 15 + 10}px`;
+      bubble.style.fontSize = `${Math.random() * 18 + 12}px`;
       bubble.style.left = `${Math.random() * 100}%`;
-      bubble.style.bottom = `-${Math.random() * 20}%`; // Começar abaixo da tela
-      bubble.style.opacity = `${Math.random() * 0.4 + 0.3}`;
+      bubble.style.bottom = `-${Math.random() * 30}%`;
+      bubble.style.opacity = `${Math.random() * 0.4 + 0.4}`;
       bubble.style.pointerEvents = 'none';
       bubble.style.zIndex = '0';
       bubble.style.willChange = 'transform, opacity';
+      bubble.style.filter = 'drop-shadow(0 0 8px rgba(168, 237, 234, 0.5)) brightness(1.2)';
       
-      // Alternar entre animação simples e com oscilação
-      const bubbleAnimation = Math.random() > 0.5 ? 'bubbleRise' : 'bubbleRiseWobble';
-      const duration = Math.random() * 6 + 5; // 5-11 segundos (mais rápido)
-      const delay = Math.random() * 2; // Delay menor (0-2s)
+      const duration = Math.random() * 10 + 8;
+      const delay = Math.random() * 6;
       
-      bubble.style.animation = `${bubbleAnimation} ${duration}s ease-out ${delay}s infinite`;
+      bubble.style.animation = `magicBubbles ${duration}s ease-out ${delay}s infinite`;
 
       this.particles.push(bubble);
       this.container.appendChild(bubble);
     }
+  }
 
-    // Criar algumas conchas e estrelas no fundo (estáticas ou flutuando levemente)
-    for (let i = 0; i < 6; i++) {
-      const decoration = document.createElement('div');
-      decoration.textContent = Math.random() > 0.5 ? '🐚' : '⭐';
-      decoration.style.position = 'fixed';
-      decoration.style.fontSize = `${Math.random() * 25 + 20}px`;
-      decoration.style.left = `${Math.random() * 100}%`;
-      decoration.style.bottom = `${Math.random() * 10}%`;
-      decoration.style.opacity = `${Math.random() * 0.3 + 0.2}`;
-      decoration.style.pointerEvents = 'none';
-      decoration.style.zIndex = '0';
-      decoration.style.willChange = 'transform';
-      decoration.style.animation = `swimFloat ${Math.random() * 4 + 3}s ease-in-out ${Math.random() * 2}s infinite`;
+  private preloadImages(): void {
+    // Pré-carregar todas as imagens dos animais para transição suave
+    const imagePaths = [
+      '/src/peixe1.png',
+      '/src/peixe2.png', 
+      '/src/peixe3.png'
+    ];
+    
+    imagePaths.forEach(path => {
+      const img = new Image();
+      img.src = path;
+    });
+  }
 
-      this.particles.push(decoration);
-      this.container.appendChild(decoration);
-    }
+  private createMarineAnimals(): void {
+    // Pré-carregar imagens primeiro
+    this.preloadImages();
+    
+    // Configurações específicas para cada animal marinho
+    const marineConfigs = [
+      // Peixes com animações variadas
+      { 
+        src: '/src/peixe1.png', 
+        type: 'fish',
+        animations: ['fishSwimLeftCorrect'], // Animação corrigida para este peixe
+        size: { min: 60, max: 120 },
+        count: 3,
+        fallback: '🐠'
+      },
+      { 
+        src: '/src/peixe2.png', 
+        type: 'fish',
+        animations: ['fishSwimLeft', 'fishSwimSlow', 'fishSwimWave'], // Múltiplas animações
+        size: { min: 60, max: 120 },
+        count: 3,
+        fallback: '🐠'
+      },
+      { 
+        src: '/src/peixe3.png', 
+        type: 'fish',
+        animations: ['fishSwimLeft', 'fishSwimSlow', 'fishSwimWave'], // Múltiplas animações
+        size: { min: 60, max: 120 },
+        count: 3,
+        fallback: '🐡'
+      },
+      // Outros animais desabilitados temporariamente
+      // { 
+      //   src: '/src/polvo.png', 
+      //   type: 'octopus',
+      //   animations: ['octopusRealMovement'],
+      //   size: { min: 80, max: 140 },
+      //   count: 2,
+      //   fallback: '🐙'
+      // },
+      // { 
+      //   src: '/src/tartaruga1.png', 
+      //   type: 'turtle',
+      //   animations: ['turtleRealMovement'],
+      //   size: { min: 90, max: 150 },
+      //   count: 2,
+      //   fallback: '🐢'
+      // },
+      // { 
+      //   src: '/src/tartaruga2.png', 
+      //   type: 'turtle',
+      //   animations: ['turtleRealMovement'],
+      //   size: { min: 90, max: 150 },
+      //   count: 2,
+      //   fallback: '🐢'
+      // },
+      // { 
+      //   src: '/src/cavalomarinho1.png', 
+      //   type: 'seahorse',
+      //   animations: ['seahorseRealMovement'],
+      //   size: { min: 70, max: 130 },
+      //   count: 2,
+      //   fallback: '🦄'
+      // },
+      // { 
+      //   src: '/src/cavalomarinho2.png', 
+      //   type: 'seahorse',
+      //   animations: ['seahorseRealMovement'],
+      //   size: { min: 70, max: 130 },
+      //   count: 2,
+      //   fallback: '🦄'
+      // }
+    ];
+    
+    // Criar todos os animais marinhos
+    marineConfigs.forEach(config => {
+      for (let i = 0; i < config.count; i++) {
+        const animalElement = document.createElement('img');
+        animalElement.src = config.src;
+        animalElement.alt = ''; // Remover alt text para evitar mostrar "fish"
+        animalElement.className = `marine-animal marine-${config.type}`;
+        
+        // Adicionar loading eager para carregar mais rápido
+        animalElement.loading = 'eager';
+        
+        // Estilo base
+        animalElement.style.position = 'fixed';
+        animalElement.style.width = `${Math.random() * (config.size.max - config.size.min) + config.size.min}px`;
+        animalElement.style.height = 'auto';
+        animalElement.style.left = `${Math.random() * 100}%`;
+        animalElement.style.top = `${Math.random() * 70 + 15}%`;
+        animalElement.style.opacity = `${Math.random() * 0.3 + 0.6}`;
+        animalElement.style.pointerEvents = 'none';
+        animalElement.style.zIndex = '1';
+        animalElement.style.willChange = 'transform';
+        
+        // Filtros específicos por tipo
+        switch(config.type) {
+          case 'fish':
+            animalElement.style.filter = 'drop-shadow(0 4px 12px rgba(0,150,255,0.4)) brightness(1.1) saturate(1.2)';
+            break;
+          case 'octopus':
+            animalElement.style.filter = 'drop-shadow(0 4px 12px rgba(255,105,180,0.4)) brightness(1.1) hue-rotate(-10deg)';
+            break;
+          case 'turtle':
+            animalElement.style.filter = 'drop-shadow(0 4px 12px rgba(50,205,50,0.4)) brightness(1.1) saturate(1.1)';
+            break;
+          case 'seahorse':
+            animalElement.style.filter = 'drop-shadow(0 4px 12px rgba(255,215,0,0.5)) brightness(1.15) hue-rotate(10deg)';
+            break;
+        }
+        
+        // Animação específica para cada animal com durações realistas
+        const randomAnimation = config.animations[Math.floor(Math.random() * config.animations.length)];
+        
+        // Durações e delays aleatórios para cada peixe
+        let duration, delay;
+        
+        if (config.type === 'fish') {
+          // Criar variação maior entre os peixes - velocidades mais lentas
+          const speedType = Math.random();
+          
+          // Garantir que alguns peixes comecem imediatamente para transição suave
+          const immediateStart = Math.random() < 0.4; // 40% chance de começar imediatamente
+          
+          if (speedType < 0.33) {
+            // Peixe rápido (mas mais lento que antes)
+            duration = Math.random() * 3 + 6; // 6-9 segundos
+            delay = immediateStart ? 0 : Math.random() * 1.5; // 0 ou 0-1.5 segundos
+          } else if (speedType < 0.66) {
+            // Peixe médio
+            duration = Math.random() * 4 + 9; // 9-13 segundos
+            delay = immediateStart ? 0 : Math.random() * 2; // 0 ou 0-2 segundos
+          } else {
+            // Peixe lento
+            duration = Math.random() * 6 + 12; // 12-18 segundos
+            delay = immediateStart ? 0 : Math.random() * 2.5; // 0 ou 0-2.5 segundos
+          }
+        } else {
+          // Para outros animais (quando reativarmos)
+          duration = Math.random() * 5 + 8; // 8-13 segundos
+          delay = Math.random() < 0.4 ? 0 : Math.random() * 2; // 40% chance de começar imediatamente
+        }
+        
+        // Aplicar animação imediatamente para transição suave
+        animalElement.style.animation = `${randomAnimation} ${duration}s ease-in-out ${delay}s infinite`;
+        animalElement.style.animationFillMode = 'both'; // Manter estado inicial e final
+        animalElement.style.willChange = 'transform'; // Otimização GPU
+        
+        // Adicionar evento de erro para fallback
+        animalElement.onerror = () => {
+          console.log(`Erro ao carregar imagem: ${animalElement.src}`);
+          // Se a imagem não carregar, usar emoji como fallback
+          const fallback = document.createElement('div');
+          fallback.textContent = config.fallback;
+          fallback.style.cssText = animalElement.style.cssText;
+          fallback.style.fontSize = `${parseInt(animalElement.style.width) * 0.6}px`;
+          fallback.style.filter = 'drop-shadow(0 3px 8px rgba(0,0,0,0.3)) brightness(1.1) saturate(1.2)';
+          
+          // Corrigir o bug: substituir o elemento correto
+          animalElement.parentNode?.replaceChild(fallback, animalElement);
+          
+          // Atualizar a lista de partículas
+          const index = this.particles.indexOf(animalElement);
+          if (index > -1) {
+            this.particles[index] = fallback;
+          }
+        };
+        
+        this.particles.push(animalElement);
+        this.container.appendChild(animalElement);
+      }
+    });
   }
 }
 
