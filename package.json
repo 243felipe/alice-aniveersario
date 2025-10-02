@@ -1,0 +1,34 @@
+{
+  "name": "convite-alice",
+  "version": "2.0.0",
+  "description": "🎉 Site interativo para o aniversário de 4 anos da Alice - Tema Princesa com elementos 3D",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "compile": "sass styles.scss styles.css"
+  },
+  "dependencies": {
+    "three": "^0.160.0"
+  },
+  "devDependencies": {
+    "@types/three": "^0.160.0",
+    "typescript": "^5.3.3",
+    "sass": "^1.70.0",
+    "vite": "^5.0.12"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": [
+    "birthday",
+    "party",
+    "invitation",
+    "3d",
+    "threejs",
+    "interactive"
+  ],
+  "author": "Família da Alice",
+  "license": "MIT"
+}

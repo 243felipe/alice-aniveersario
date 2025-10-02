@@ -1,0 +1,37 @@
+-# Dependências
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Build (apenas o dist, não o código fonte)
+dist/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Logs
+logs/
+*.log
+
+# Temporary
+.tmp/
+temp/
+*.tmp
+
+# Cache
+.cache/
+.parcel-cache/
+.eslintcache
+

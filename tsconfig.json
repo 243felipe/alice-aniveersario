@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "module": "esnext",
+    "outDir": "./",
+    "strict": true
+  },
+  "include": ["main.ts"]
+}

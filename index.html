@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>✨ Alice ✨</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Pacifico&family=Quicksand:wght@300;400;500;600;700&family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <canvas id="canvas3d"></canvas>
+  
+  
+  <div class="particles-container" id="particles"></div>
+  
+  <header class="hero">
+    <div class="hero-content">
+      <h1 class="hero-title">
+        <span class="hero-name">Alice</span>
+        <span class="hero-subtitle">vai fazer</span>
+        <span class="hero-age">4 Anos!</span>
+      </h1>
+      <p class="hero-description">Venha mergulhar nessa aventura mágica no fundo do mar! 🌊</p>
+      <br>
+      <br>
+      
+      <!-- Mini Galeria -->
+      <div class="hero-gallery">
+        <div class="hero-gallery-item">
+          <div class="hero-photo-wrapper">
+            <img src="/src/1.jpg" alt="Alice com 1 aninho" class="hero-photo">
+          </div>
+          <p class="hero-photo-title">1 Aninho</p>
+        </div>
+        <div class="hero-gallery-item">
+          <div class="hero-photo-wrapper">
+            <img src="/src/2.jpg" alt="Alice com 2 aninhos" class="hero-photo">
+          </div>
+          <p class="hero-photo-title">2 Aninhos</p>
+        </div>
+        <div class="hero-gallery-item">
+          <div class="hero-photo-wrapper">
+            <img src="/src/3.jpg" alt="Alice com 3 aninhos" class="hero-photo">
+          </div>
+          <p class="hero-photo-title">3 Aninhos</p>
+        </div>
+        <div class="hero-gallery-item">
+          <div class="hero-photo-wrapper">
+            <img src="/src/4.jpg" alt="Alice com 4 anos" class="hero-photo">
+          </div>
+          <p class="hero-photo-title">4 Anos!</p>
+        </div>
+      </div>
+      
+      <div class="hero-decoration">
+        <br>
+        <br>
+      </div>
+    </div>
+    <div class="scroll-indicator">
+      <span>↓</span>
+    </div>
+  </header>
+
+  <main>
+    <!-- Contagem Regressiva -->
+    <section class="countdown-section">
+      <div class="container">
+        <h2 class="section-title">Contagem Regressiva</h2>
+        <p class="section-subtitle">Faltam apenas</p>
+        <div id="countdown" class="countdown">
+          <div class="countdown-item">
+            <span class="countdown-number" id="days">00</span>
+            <span class="countdown-label">Dias</span>
+          </div>
+          <div class="countdown-item">
+            <span class="countdown-number" id="hours">00</span>
+            <span class="countdown-label">Horas</span>
+          </div>
+          <div class="countdown-item">
+            <span class="countdown-number" id="minutes">00</span>
+            <span class="countdown-label">Minutos</span>
+          </div>
+          <div class="countdown-item">
+            <span class="countdown-number" id="seconds">00</span>
+            <span class="countdown-label">Segundos</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Detalhes do Evento -->
+    <section class="event-details">
+      <div class="container">
+        <h2 class="section-title">Detalhes do Local</h2>
+        <div class="details-grid">
+          <div class="detail-card">
+            <div class="detail-icon">📅</div>
+            <h3>Data</h3>
+            <p>08 de Dezembro de 2025</p>
+            <span class="detail-subtitle">Sexta-feira</span>
+          </div>
+          <div class="detail-card">
+            <div class="detail-icon">🕐</div>
+            <h3>Horário</h3>
+            <p>19:00 horas</p>
+            <span class="detail-subtitle">Não se atrase!</span>
+          </div>
+          <div class="detail-card">
+            <div class="detail-icon">📍</div>
+            <h3>Local</h3>
+            <p>Salão de Festas</p>
+            <span class="detail-subtitle">Av. Miguel Sutil 123</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Formulário de Confirmação -->
+    <section class="confirmation-section">
+      <div class="container">
+        <h2 class="section-title">Confirme sua Presença</h2>
+        
+        <form id="confirmForm" class="confirm-form">
+          <div class="form-group">
+            <label for="nome">
+              <span class="label-icon">👤</span>
+              Nome Completo
+            </label>
+            <input type="text" id="nome" name="nome" required placeholder="Digite seu nome">
+          </div>
+
+          <div class="form-group">
+            <label for="presenca">
+              <span class="label-icon">💌</span>
+              Vai comparecer?
+            </label>
+            <div class="radio-group">
+              <label class="radio-label">
+                <input type="radio" name="presenca" value="Sim" checked>
+                <span class="radio-custom"></span>
+                <span>Sim, estarei lá! 🎉</span>
+              </label>
+              <label class="radio-label">
+                <input type="radio" name="presenca" value="Não">
+                <span class="radio-custom"></span>
+                <span>Não poderei ir 😢</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="pessoasDropdown">
+              <span class="label-icon">👥</span>
+              Quantas pessoas virão?
+            </label>
+            <select name="pessoas" id="pessoasDropdown" class="form-select">
+              <option value="1">Apenas Eu</option>
+              <option value="2">Eu +1 Adulto e +1 Criança</option>
+              <option value="3">Eu +1 Adulto e +2 Crianças</option>
+              <option value="4">Eu +1 Adulto e +3 Crianças</option>
+              <option value="5">Eu +1 Adulto e +4 Crianças</option>
+              <option value="custom">Informar mais pessoas</option>
+            </select>
+            <input type="number" name="qtdExtra" id="qtdExtra" class="form-input" min="1" placeholder="Quantidade de pessoas">
+          </div>
+
+          <div class="form-group">
+            <label for="observacao">
+              <span class="label-icon">💬</span>
+              Observações (Opcional)
+            </label>
+            <textarea id="observacao" name="observacao"></textarea>
+          </div>
+
+          <button type="submit" class="btn-submit">
+            <span class="btn-text">Enviar</span>
+            <span class="btn-icon">✨</span>
+          </button>
+        </form>
+      </div>
+    </section>
+
+    <!-- Mensagem Final -->
+    <section class="final-message">
+      <div class="container">
+        <div class="message-card">
+          <h2>Esperamos por Você! 💖</h2>
+          <p>Será uma festa mágica e inesquecível no fundo do mar da Alice!</p>
+          <p class="message-signature">Com carinho mamãe Inghrid, <br>papai Felipe e Alice.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Fundo do Mar Ilustrado -->
+  <div class="ocean-floor">
+    <!-- Camadas de profundidade -->
+    <div class="ocean-layer-back"></div>
+    <div class="ocean-layer-mid"></div>
+    
+    <!-- Areia ondulada -->
+    <div class="sand-layer">
+      <svg class="sand-waves" viewBox="0 0 1200 200" preserveAspectRatio="none">
+        <path d="M0,100 Q300,60 600,100 T1200,100 L1200,200 L0,200 Z" fill="rgba(194,178,128,0.3)"/>
+        <path d="M0,120 Q250,85 500,120 T1000,120 T1200,120 L1200,200 L0,200 Z" fill="rgba(184,168,118,0.5)"/>
+        <path d="M0,140 Q200,115 400,140 T800,140 T1200,140 L1200,200 L0,200 Z" fill="#c2b280"/>
+        <path d="M0,160 L1200,160 L1200,200 L0,200 Z" fill="#b8a876"/>
+      </svg>
+    </div>
+    
+    <!-- Decorações do fundo -->
+    <div class="ocean-decorations">
+      <!-- Algas grandes no fundo -->
+      <!-- <div class="seaweed-large" style="left: 5%; bottom: 0;">
+        <div class="seaweed-stem" style="background: linear-gradient(to top, #2d5f3f 0%, #3d7f5f 50%, #4d8f6f 100%); height: 180px;"></div>
+      </div>
+      <div class="seaweed-large" style="left: 18%; bottom: 0; animation-delay: 0.3s;">
+        <div class="seaweed-stem" style="background: linear-gradient(to top, #1a4d2e 0%, #2a6d4e 50%, #3a7d5e 100%); height: 150px;"></div>
+      </div>
+      <div class="seaweed-large" style="left: 35%; bottom: 0; animation-delay: 0.7s;">
+        <div class="seaweed-stem" style="background: linear-gradient(to top, #2d5f3f 0%, #3d7f5f 50%, #4d8f6f 100%); height: 200px;"></div>
+      </div>
+      <div class="seaweed-large" style="left: 52%; bottom: 0; animation-delay: 0.5s;">
+        <div class="seaweed-stem" style="background: linear-gradient(to top, #e07856 0%, #f09876 50%, #ffb896 100%); height: 120px;"></div>
+      </div>
+      <div class="seaweed-large" style="left: 68%; bottom: 0; animation-delay: 0.9s;">
+        <div class="seaweed-stem" style="background: linear-gradient(to top, #1a4d2e 0%, #2a6d4e 50%, #3a7d5e 100%); height: 170px;"></div>
+      </div>
+      <div class="seaweed-large" style="left: 82%; bottom: 0; animation-delay: 0.4s;">
+        <div class="seaweed-stem" style="background: linear-gradient(to top, #d4af37 0%, #e4bf47 50%, #f4cf57 100%); height: 140px;"></div>
+      </div>
+      <div class="seaweed-large" style="left: 95%; bottom: 0; animation-delay: 0.6s;">
+        <div class="seaweed-stem" style="background: linear-gradient(to top, #2d5f3f 0%, #3d7f5f 50%, #4d8f6f 100%); height: 160px;"></div>
+      </div> -->
+      
+      <!-- Corais e algas menores -->
+      <!-- <div class="coral" style="left: 12%; bottom: 50px;"><span>🪸</span></div>
+      <div class="coral" style="left: 42%; bottom: 60px;"><span>🪸</span></div>
+      <div class="coral" style="left: 78%; bottom: 55px;"><span>🪸</span></div> -->
+      
+      <!-- Estrelas do mar na areia -->
+      <div class="starfish" style="left: 25%; bottom: 40px; color: #e07856;"><span>⭐</span></div>
+      <div class="starfish" style="left: 60%; bottom: 35px; color: #ff6b6b;"><span>⭐</span></div>
+      <div class="starfish" style="left: 88%; bottom: 42px; color: #ffa07a;"><span>⭐</span></div>
+      
+      <!-- Conchas -->
+      <div class="shell" style="left: 8%; bottom: 30px;"><span>🐚</span></div>
+      <div class="shell" style="left: 32%; bottom: 35px;"><span>🐚</span></div>
+      <div class="shell" style="left: 72%; bottom: 38px;"><span>🐚</span></div>
+      
+      <!-- Peixes pequenos -->
+      <div class="small-fish" style="left: 20%; bottom: 120px;"><span>🐠</span></div>
+      <div class="small-fish" style="left: 55%; bottom: 140px; animation-delay: 0.5s;"><span>🐡</span></div>
+      
+      <!-- Bolhas subindo do fundo -->
+      <div class="floor-bubble" style="left: 15%; animation-delay: 0s;"><span>○</span></div>
+      <div class="floor-bubble" style="left: 45%; animation-delay: 0.8s;"><span>○</span></div>
+      <div class="floor-bubble" style="left: 70%; animation-delay: 1.2s;"><span>○</span></div>
+      <div class="floor-bubble" style="left: 90%; animation-delay: 0.4s;"><span>○</span></div>
+    </div>
+  </div>
+
+  <!-- <footer class="footer">
+    <div class="container">
+      <p>Site criado por Felipe Cunha</p>
+    </div>
+  </footer> -->
+
+  <script type="module" src="main.ts"></script>
+</body>
+</html>
