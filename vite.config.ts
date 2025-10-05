@@ -12,9 +12,9 @@ export default defineConfig({
     assetsDir: 'assets',
     sourcemap: true,
   },
-  optimizeDeps: {
-    include: ['three'],
-  },
+  // optimizeDeps: {
+  //   include: ['three'], // THREE.js removido - usando apenas PNG
+  // },
 });
 
 
