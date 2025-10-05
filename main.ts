@@ -2,7 +2,7 @@
 // ✨ CONVITE ALICE 4 ANOS - SISTEMA INTERATIVO ✨
 // ========================================
 
-import * as THREE from 'three';
+// import * as THREE from 'three'; // 3D completamente desabilitado
 
 // ========================================
 // CONFIGURAÇÃO DO EMAILJS
@@ -46,8 +46,9 @@ interface StatsData {
 }
 
 // ========================================
-// SCENE 3D - FUNDO DO MAR MÁGICO
+// SCENE 3D - FUNDO DO MAR MÁGICO - COMPLETAMENTE DESABILITADO
 // ========================================
+/*
 class UnderwaterScene3D {
   private scene: THREE.Scene;
   private camera: THREE.PerspectiveCamera;
@@ -992,6 +993,7 @@ class UnderwaterScene3D {
     this.renderer.setSize(window.innerWidth, window.innerHeight);
   }
 }
+*/ // Fim do comentário da classe UnderwaterScene3D
 
 // ========================================
 // PARTÍCULAS FLUTUANTES
@@ -1002,6 +1004,7 @@ class ParticleSystem {
 
   constructor(containerId: string) {
     this.container = document.getElementById(containerId)!;
+    console.log('🌊 Container de partículas encontrado:', this.container);
     this.createParticles();
   }
 
@@ -1054,6 +1057,8 @@ class ParticleSystem {
   }
 
   private createMarineAnimals(): void {
+    console.log('🐠 Iniciando criação dos peixes PNG...');
+    
     // Pré-carregar imagens primeiro
     this.preloadImages();
     
@@ -1145,7 +1150,7 @@ class ParticleSystem {
         animalElement.style.top = `${Math.random() * 70 + 15}%`;
         animalElement.style.opacity = `${Math.random() * 0.3 + 0.6}`;
         animalElement.style.pointerEvents = 'none';
-        animalElement.style.zIndex = '10'; // Z-index alto para garantir visibilidade
+        animalElement.style.zIndex = '9999'; // Z-index muito alto para garantir visibilidade
         animalElement.style.willChange = 'transform';
         
         // Filtros específicos por tipo
@@ -1201,6 +1206,10 @@ class ParticleSystem {
         animalElement.style.animationFillMode = 'both'; // Manter estado inicial e final
         animalElement.style.willChange = 'transform'; // Otimização GPU
         
+        // Debug: forçar visibilidade
+        animalElement.style.display = 'block';
+        animalElement.style.visibility = 'visible';
+        
         // Adicionar evento de erro para fallback
         animalElement.onerror = () => {
           console.log(`Erro ao carregar imagem: ${animalElement.src}`);
@@ -1228,6 +1237,8 @@ class ParticleSystem {
         console.log(`🐠 Peixe PNG criado: ${config.src}`);
       }
     });
+    
+    console.log(`🐠 Total de peixes PNG criados: ${this.particles.length}`);
   }
 }
 
