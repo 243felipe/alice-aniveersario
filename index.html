@@ -53,7 +53,7 @@
           <div class="hero-photo-wrapper">
             <img src="/src/4.jpg" alt="Alice com 4 anos" class="hero-photo">
           </div>
-          <p class="hero-photo-title">quase 4 Anos</p>
+          <p class="hero-photo-title">quase 4 Anos!</p>
         </div>
       </div>
       
@@ -155,19 +155,44 @@
           </div>
 
           <div class="form-group">
-            <label for="pessoasDropdown">
+            <label>
               <span class="label-icon">👥</span>
               Quantas pessoas virão?
             </label>
-            <select name="pessoas" id="pessoasDropdown" class="form-select">
-              <option value="1">Apenas Eu</option>
-              <option value="2">Eu +1 Adulto e +1 Criança</option>
-              <option value="3">Eu +1 Adulto e +2 Crianças</option>
-              <option value="4">Eu +1 Adulto e +3 Crianças</option>
-              <option value="5">Eu +1 Adulto e +4 Crianças</option>
-              <option value="custom">Informar mais pessoas</option>
-            </select>
-            <input type="number" name="qtdExtra" id="qtdExtra" class="form-input" min="1" placeholder="Quantidade de pessoas">
+            
+            <!-- Contador de Adultos -->
+            <div class="counter-group">
+              <div class="counter-item">
+                <label class="counter-label">
+                  <span class="counter-icon">👨‍👩‍👧‍👦</span>
+                  Adultos
+                </label>
+                <div class="counter-controls">
+                  <button type="button" class="counter-btn" id="adultos-minus">−</button>
+                  <input type="number" name="adultos" id="adultos" class="counter-input" value="1" min="1" max="20" readonly>
+                  <button type="button" class="counter-btn" id="adultos-plus">+</button>
+                </div>
+              </div>
+              
+              <!-- Contador de Crianças -->
+              <div class="counter-item">
+                <label class="counter-label">
+                  <span class="counter-icon">👶</span>
+                  Crianças
+                </label>
+                <div class="counter-controls">
+                  <button type="button" class="counter-btn" id="criancas-minus">−</button>
+                  <input type="number" name="criancas" id="criancas" class="counter-input" value="0" min="0" max="20" readonly>
+                  <button type="button" class="counter-btn" id="criancas-plus">+</button>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Total de pessoas (calculado automaticamente) -->
+            <div class="total-pessoas">
+              <span class="total-label">Total de pessoas:</span>
+              <span class="total-number" id="total-pessoas">1</span>
+            </div>
           </div>
 
           <div class="form-group">

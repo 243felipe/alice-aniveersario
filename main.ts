@@ -25,8 +25,8 @@ const EMAILJS_CONFIG = {
 interface ConfirmationData {
   nome: string;
   presenca: string;
-  pessoas: string;
-  qtdExtra?: string;
+  adultos: number;
+  criancas: number;
   observacao?: string;
 }
 
@@ -34,8 +34,8 @@ interface GuestData {
   id: number;
   nome: string;
   presenca: string;
-  pessoas: string;
-  qtdExtra?: number;
+  adultos: number;
+  criancas: number;
   observacao?: string;
 }
 
@@ -1137,8 +1137,7 @@ class ParticleSystem {
         
         // Adicionar loading eager para carregar mais rápido
         animalElement.loading = 'eager';
-        
-        // Estilo base
+       
         animalElement.style.position = 'fixed';
         animalElement.style.width = `${Math.random() * (config.size.max - config.size.min) + config.size.min}px`;
         animalElement.style.height = 'auto';
@@ -1152,7 +1151,7 @@ class ParticleSystem {
         // Filtros específicos por tipo
         switch(config.type) {
           case 'fish':
-            animalElement.style.filter = 'drop-shadow(0 4px 12px rgba(0,150,255,0.4)) brightness(1.1) saturate(1.2)';
+            animalElement.style.filter = 'drop-shadow(0 4px 12px rgba(3, 142, 241, 0.4)) brightness(1.1) saturate(1.2)';
             break;
           case 'octopus':
             animalElement.style.filter = 'drop-shadow(0 4px 12px rgba(255,105,180,0.4)) brightness(1.1) hue-rotate(-10deg)';
@@ -1297,13 +1296,8 @@ class EmailService {
   }
 
   static async enviarEmail(data: ConfirmationData): Promise<void> {
-    // Calcular número de pessoas
-    let numPessoas = 1;
-    if (data.pessoas === 'custom' && data.qtdExtra) {
-      numPessoas = parseInt(data.qtdExtra);
-    } else if (data.pessoas) {
-      numPessoas = parseInt(data.pessoas);
-    }
+    // Calcular número total de pessoas
+    const totalPessoas = data.adultos + data.criancas;
 
     // Preparar dados para o template do email
     const emailParams = {
@@ -1311,17 +1305,21 @@ class EmailService {
       from_name: 'Convite Alice 4 Anos',
       nome_convidado: data.nome,
       presenca: data.presenca,
-      num_pessoas: numPessoas,
+      num_adultos: data.adultos,
+      num_criancas: data.criancas,
+      total_pessoas: totalPessoas,
       observacao: data.observacao || 'Nenhuma observação',
       data_confirmacao: new Date().toLocaleString('pt-BR'),
       // Mensagem formatada bonita
       mensagem: `
 🎉 NOVA CONFIRMAÇÃO RECEBIDA! 🎉
 
-👤 Nome: ${data.nome}
-💌 Presença: ${data.presenca}
-👥 Quantidade de pessoas: ${numPessoas}
-📝 Observação: ${data.observacao || 'Nenhuma'}
+👤 Nome do Convidado: ${data.nome}
+💌 Vai comparecer? ${data.presenca}
+👨‍👩‍👧‍👦 Adultos: ${data.adultos}
+👶 Crianças: ${data.criancas}
+👥 Total de pessoas: ${totalPessoas}
+📝 Observações: ${data.observacao || 'Nenhuma'}
 📅 Data da confirmação: ${new Date().toLocaleString('pt-BR')}
 
       `
@@ -1354,8 +1352,8 @@ class StorageService {
       id: Date.now(),
       nome: data.nome,
       presenca: data.presenca,
-      pessoas: data.pessoas,
-      qtdExtra: data.qtdExtra ? parseInt(data.qtdExtra) : undefined,
+      adultos: data.adultos,
+      criancas: data.criancas,
       observacao: data.observacao,
     };
 
@@ -1380,36 +1378,105 @@ class StorageService {
 // ========================================
 class FormManager {
   private form: HTMLFormElement;
-  private pessoasDropdown: HTMLSelectElement;
-  private qtdExtra: HTMLInputElement;
+  private adultosInput: HTMLInputElement;
+  private criancasInput: HTMLInputElement;
+  private totalPessoasSpan: HTMLElement;
 
   constructor() {
     this.form = document.getElementById('confirmForm') as HTMLFormElement;
-    this.pessoasDropdown = document.getElementById('pessoasDropdown') as HTMLSelectElement;
-    this.qtdExtra = document.getElementById('qtdExtra') as HTMLInputElement;
+    this.adultosInput = document.getElementById('adultos') as HTMLInputElement;
+    this.criancasInput = document.getElementById('criancas') as HTMLInputElement;
+    this.totalPessoasSpan = document.getElementById('total-pessoas') as HTMLElement;
 
     this.setupEventListeners();
+    this.setupCounters();
   }
 
   private setupEventListeners(): void {
-    // Mostrar/esconder campo extra de pessoas
-    this.pessoasDropdown.addEventListener('change', () => {
-      if (this.pessoasDropdown.value === 'custom') {
-        this.qtdExtra.classList.add('show');
-        this.qtdExtra.style.display = 'block';
-      } else {
-        this.qtdExtra.classList.remove('show');
-        this.qtdExtra.style.display = 'none';
-      }
-    });
-
     // Submissão do formulário
     this.form.addEventListener('submit', async (e) => {
-  e.preventDefault();
+      e.preventDefault();
       e.stopPropagation(); // Prevenir propagação
       await this.handleSubmit();
       return false; // Prevenir comportamento padrão adicional
     });
+  }
+
+  private setupCounters(): void {
+    // Botões de adultos
+    const adultosPlus = document.getElementById('adultos-plus') as HTMLButtonElement;
+    const adultosMinus = document.getElementById('adultos-minus') as HTMLButtonElement;
+    
+    // Botões de crianças
+    const criancasPlus = document.getElementById('criancas-plus') as HTMLButtonElement;
+    const criancasMinus = document.getElementById('criancas-minus') as HTMLButtonElement;
+
+    // Event listeners para adultos
+    adultosPlus.addEventListener('click', () => {
+      const currentValue = parseInt(this.adultosInput.value);
+      if (currentValue < 20) {
+        this.adultosInput.value = (currentValue + 1).toString();
+        this.updateTotal();
+        this.updateButtonStates();
+      }
+    });
+
+    adultosMinus.addEventListener('click', () => {
+      const currentValue = parseInt(this.adultosInput.value);
+      if (currentValue > 1) {
+        this.adultosInput.value = (currentValue - 1).toString();
+        this.updateTotal();
+        this.updateButtonStates();
+      }
+    });
+
+    // Event listeners para crianças
+    criancasPlus.addEventListener('click', () => {
+      const currentValue = parseInt(this.criancasInput.value);
+      if (currentValue < 20) {
+        this.criancasInput.value = (currentValue + 1).toString();
+        this.updateTotal();
+        this.updateButtonStates();
+      }
+    });
+
+    criancasMinus.addEventListener('click', () => {
+      const currentValue = parseInt(this.criancasInput.value);
+      if (currentValue > 0) {
+        this.criancasInput.value = (currentValue - 1).toString();
+        this.updateTotal();
+        this.updateButtonStates();
+      }
+    });
+
+    // Inicializar estado dos botões
+    this.updateButtonStates();
+  }
+
+  private updateTotal(): void {
+    const adultos = parseInt(this.adultosInput.value);
+    const criancas = parseInt(this.criancasInput.value);
+    const total = adultos + criancas;
+    this.totalPessoasSpan.textContent = total.toString();
+  }
+
+  private updateButtonStates(): void {
+    const adultos = parseInt(this.adultosInput.value);
+    const criancas = parseInt(this.criancasInput.value);
+
+    // Botões de adultos
+    const adultosPlus = document.getElementById('adultos-plus') as HTMLButtonElement;
+    const adultosMinus = document.getElementById('adultos-minus') as HTMLButtonElement;
+    
+    // Botões de crianças
+    const criancasPlus = document.getElementById('criancas-plus') as HTMLButtonElement;
+    const criancasMinus = document.getElementById('criancas-minus') as HTMLButtonElement;
+
+    // Desabilitar botões conforme limites
+    adultosMinus.disabled = adultos <= 1;
+    adultosPlus.disabled = adultos >= 20;
+    criancasMinus.disabled = criancas <= 0;
+    criancasPlus.disabled = criancas >= 20;
   }
 
   private async handleSubmit(): Promise<void> {
@@ -1417,13 +1484,10 @@ class FormManager {
     const data: ConfirmationData = {
       nome: formData.get('nome') as string,
       presenca: formData.get('presenca') as string,
-      pessoas: formData.get('pessoas') as string,
+      adultos: parseInt(formData.get('adultos') as string),
+      criancas: parseInt(formData.get('criancas') as string),
       observacao: formData.get('observacao') as string,
     };
-
-    if (data.pessoas === 'custom') {
-      data.qtdExtra = formData.get('qtdExtra') as string;
-    }
 
     // Validação
     if (!data.nome || data.nome.trim().length < 3) {
@@ -1592,6 +1656,9 @@ class FormManager {
       setTimeout(() => {
         overlay.remove();
         modal.remove();
+        
+        // Scroll automático para o rodapé após fechar a modal
+        this.scrollToFooter();
       }, 300);
     };
     
@@ -1647,6 +1714,29 @@ class FormManager {
         }
       `;
       document.head.appendChild(style);
+    }
+  }
+
+  private scrollToFooter(): void {
+    // Encontrar o rodapé da página (seção final-message ou ocean-floor)
+    const finalMessage = document.querySelector('.final-message');
+    const oceanFloor = document.querySelector('.ocean-floor');
+    
+    // Escolher o elemento mais próximo do final da página
+    let targetElement = oceanFloor || finalMessage;
+    
+    if (targetElement) {
+      // Scroll suave para o elemento
+      targetElement.scrollIntoView({ 
+        behavior: 'smooth', 
+        block: 'start' 
+      });
+    } else {
+      // Fallback: scroll para o final da página
+      window.scrollTo({ 
+        top: document.documentElement.scrollHeight, 
+        behavior: 'smooth' 
+      });
     }
   }
 

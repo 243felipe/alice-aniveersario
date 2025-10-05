@@ -465,6 +465,172 @@ body {
   z-index: 2;
 }
 
+/* Contadores de Pessoas */
+.counter-group {
+  display: flex;
+  gap: 20px;
+  margin-top: 15px;
+  flex-wrap: wrap;
+}
+
+.counter-item {
+  flex: 1;
+  min-width: 200px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 20px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+}
+
+.counter-item:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.counter-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 15px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.counter-icon {
+  font-size: 20px;
+}
+
+.counter-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+}
+
+.counter-btn {
+  width: 44px;
+  height: 44px;
+  border: none;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  color: white;
+  font-size: 24px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+  user-select: none;
+}
+
+.counter-btn:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+  background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+}
+
+.counter-btn:active {
+  transform: translateY(0) scale(0.95);
+  transition: all 0.1s ease;
+}
+
+.counter-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.2);
+}
+
+.counter-btn:disabled:hover {
+  transform: none;
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+}
+
+.counter-input {
+  width: 60px;
+  height: 44px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 700;
+  text-align: center;
+  backdrop-filter: blur(10px);
+  cursor: default;
+  user-select: none;
+}
+
+.counter-input:focus {
+  outline: none;
+  border-color: rgba(59, 130, 246, 0.6);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+.total-pessoas {
+  margin-top: 20px;
+  padding: 15px 20px;
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.2) 0%, rgba(5, 150, 105, 0.2) 100%);
+  border-radius: 12px;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.total-label {
+  font-size: 16px;
+  font-weight: 600;
+  color: #ffffff;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.total-number {
+  font-size: 20px;
+  font-weight: 700;
+  color: #10b981;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 8px 16px;
+  border-radius: 8px;
+  min-width: 40px;
+  text-align: center;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+@media (max-width: 768px) {
+  .counter-group {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .counter-item {
+    min-width: unset;
+  }
+  
+  .counter-controls {
+    gap: 12px;
+  }
+  
+  .counter-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+  }
+  
+  .counter-input {
+    width: 50px;
+    height: 40px;
+    font-size: 16px;
+  }
+}
+
 .confirm-form {
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(30px);
@@ -1973,16 +2139,22 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%) scale(0.7);
-  background: white;
-  border-radius: 30px;
-  padding: 50px 40px 40px;
-  max-width: 500px;
+  background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
+  border-radius: 32px;
+  padding: 60px 50px 50px;
+  max-width: 540px;
   width: 90%;
-  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.3);
+  box-shadow: 
+    0 32px 80px rgba(0, 0, 0, 0.12),
+    0 16px 40px rgba(0, 0, 0, 0.08),
+    0 8px 20px rgba(0, 0, 0, 0.04),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
   z-index: 9999;
   text-align: center;
   opacity: 0;
-  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 .modal-success.show {
   opacity: 1;
@@ -1991,106 +2163,130 @@ body {
 
 .modal-close {
   position: absolute;
-  top: 15px;
-  right: 15px;
-  width: 40px;
-  height: 40px;
+  top: 20px;
+  right: 20px;
+  width: 44px;
+  height: 44px;
   border: none;
-  background: rgba(0, 0, 0, 0.05);
+  background: rgba(0, 0, 0, 0.04);
   border-radius: 50%;
-  font-size: 28px;
+  font-size: 24px;
   line-height: 1;
-  color: #666;
+  color: #64748b;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   display: flex;
   align-items: center;
   justify-content: center;
+  backdrop-filter: blur(10px);
 }
 .modal-close:hover {
-  background: rgba(255, 107, 157, 0.1);
-  color: #ff6b9d;
-  transform: rotate(90deg);
+  background: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
+  transform: rotate(90deg) scale(1.1);
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.2);
 }
 
 .modal-icon {
-  width: 100px;
-  height: 100px;
-  margin: 0 auto 30px;
+  width: 120px;
+  height: 120px;
+  margin: 0 auto 40px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
-  animation: iconPop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  animation: iconPop 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 .modal-icon.success {
-  background: linear-gradient(135deg, #00c853 0%, #64dd17 100%);
-  box-shadow: 0 15px 40px rgba(0, 200, 83, 0.3);
+  background: linear-gradient(135deg, #10b981 0%, #059669 50%, #047857 100%);
+  box-shadow: 
+    0 20px 50px rgba(16, 185, 129, 0.25),
+    0 10px 25px rgba(16, 185, 129, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 .modal-icon.info {
-  background: linear-gradient(135deg, #ff6b9d 0%, #c44dff 100%);
-  box-shadow: 0 15px 40px rgba(255, 107, 157, 0.3);
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 50%, #1e40af 100%);
+  box-shadow: 
+    0 20px 50px rgba(59, 130, 246, 0.25),
+    0 10px 25px rgba(59, 130, 246, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 .modal-icon .icon-symbol {
-  font-size: 60px;
+  font-size: 64px;
   color: white;
   font-weight: 700;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.3));
 }
 .modal-icon::before {
   content: "";
   position: absolute;
-  width: 110px;
-  height: 110px;
-  border: 3px solid;
+  width: 130px;
+  height: 130px;
+  border: 2px solid;
   border-radius: 50%;
-  animation: rippleCircle 1s ease-out infinite;
+  animation: rippleCircle 2s ease-out infinite;
+  opacity: 0.6;
 }
 .modal-icon.success::before {
-  border-color: rgba(0, 200, 83, 0.3);
+  border-color: rgba(16, 185, 129, 0.4);
 }
 .modal-icon.info::before {
-  border-color: rgba(255, 107, 157, 0.3);
+  border-color: rgba(59, 130, 246, 0.4);
 }
 
 .modal-title {
-  font-family: "Pacifico", cursive;
-  font-size: 32px;
-  color: #2d2d2d;
-  margin-bottom: 20px;
-  background: linear-gradient(135deg, #a8edea 0%, #89d4f7 50%, #66b3ff 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 16px;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
 }
 
 .modal-message {
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   font-size: 16px;
-  line-height: 1.8;
-  color: #666;
-  margin-bottom: 30px;
+  font-weight: 400;
+  line-height: 1.6;
+  color: #64748b;
+  margin-bottom: 40px;
+  max-width: 420px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .modal-btn-ok {
   width: 100%;
-  padding: 15px 40px;
-  background: linear-gradient(135deg, #a8edea 0%, #89d4f7 50%, #66b3ff 100%);
+  padding: 16px 32px;
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
   color: white;
   border: none;
-  border-radius: 15px;
-  font-size: 18px;
-  font-weight: 700;
+  border-radius: 16px;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 16px;
+  font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 8px 20px rgba(102, 204, 204, 0.3);
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 
+    0 8px 25px rgba(59, 130, 246, 0.25),
+    0 4px 12px rgba(59, 130, 246, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  letter-spacing: 0.025em;
 }
 .modal-btn-ok:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 12px 30px rgba(255, 107, 157, 0.5);
+  transform: translateY(-2px);
+  box-shadow: 
+    0 12px 35px rgba(59, 130, 246, 0.35),
+    0 6px 16px rgba(59, 130, 246, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
 }
 .modal-btn-ok:active {
   transform: translateY(-1px);
+  transition: all 0.1s ease;
 }
 
 @keyframes iconPop {
