@@ -1145,7 +1145,7 @@ class ParticleSystem {
         animalElement.style.top = `${Math.random() * 70 + 15}%`;
         animalElement.style.opacity = `${Math.random() * 0.3 + 0.6}`;
         animalElement.style.pointerEvents = 'none';
-        animalElement.style.zIndex = '1';
+        animalElement.style.zIndex = '10'; // Z-index alto para garantir visibilidade
         animalElement.style.willChange = 'transform';
         
         // Filtros específicos por tipo
@@ -1223,6 +1223,9 @@ class ParticleSystem {
         
         this.particles.push(animalElement);
         this.container.appendChild(animalElement);
+        
+        // Debug log
+        console.log(`🐠 Peixe PNG criado: ${config.src}`);
       }
     });
   }
@@ -1812,7 +1815,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Inicializar EmailJS
   EmailService.initialize();
 
-  // Inicializar Scene 3D - DESABILITADO
+  // Sistema 3D completamente desabilitado - usando apenas peixes PNG
   // const canvas = document.getElementById('canvas3d') as HTMLCanvasElement;
   // new UnderwaterScene3D(canvas);
 
@@ -1836,4 +1839,5 @@ document.addEventListener('DOMContentLoaded', () => {
   console.log('🎉 Sistema do convite da Alice carregado com sucesso! ✨');
   console.log('📧 Sistema de emails ativado - Confirmações serão enviadas por email!');
   console.log('🌊 Efeito de profundidade oceânica ativado!');
+  console.log('🐠 Sistema de peixes PNG ativado - Peixes 3D desabilitados!');
 });
